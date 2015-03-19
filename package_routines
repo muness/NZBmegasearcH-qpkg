@@ -142,9 +142,19 @@ fi
 pkg_pre_install(){ 
 #The url to the git repository we're going to install
 GIT_URL="https://github.com/xer0x/usntssearch.git"
+if [ ! -f /Apps/bin/git ]; then
+    if [ -x /etc/init.d/git.sh ]; then
+        /bin/echo "  Starting git..."
+        /etc/init.d/git.sh start
+        sleep 2
+    else #catch all
+        /bin/echo "  No git qpkg found, please install it"
+        err_log "Failed to start $QPKG_NAME, no git found." 1
+        exit 1
+    fi
+fi
 
-#git clone the app source in a temp dir ($$ returns the pid we are running under, should be random enough)
-/bin/git clone $GIT_URL $SYS_QPKG_DIR
+git clone $GIT_URL $SYS_QPKG_DIR
 /bin/sync
 
 #check for success else log error and breakoff install
