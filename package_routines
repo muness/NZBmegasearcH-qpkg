@@ -141,7 +141,7 @@ fi
 ######################################################################
 pkg_pre_install(){ 
 #The url to the git repository we're going to install
-GIT_URL="https://github.com/xer0x/usntssearch.git"
+GIT_URL="http://github.com/xer0x/usntssearch.git"
 if [ ! -f /Apps/bin/git ]; then
     if [ -x /etc/init.d/git.sh ]; then
         /bin/echo "  Starting git..."
